@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — NapControl</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🌙</div>
+            <h1>NapControl</h1>
+        </header>
+
+        <nav>
+            <a href="index.html">Start</a>
+            <a href="privacy.html">Datenschutz</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="support.html">Support</a>
+        </nav>
+
+        <main>
+            <h1>Support</h1>
+
+            <div class="card highlight">
+                <p>Bei Fragen, Bug-Reports oder Feedback schreib mir gerne eine E-Mail an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a>. Ich antworte normalerweise innerhalb weniger Tage.</p>
+            </div>
+
+            <h2>Häufige Fragen</h2>
+
+            <h3>Welche TVs werden unterstützt?</h3>
+            <p>Samsung (Tizen), Sony (Bravia), LG (WebOS), Hisense (VIDAA U4+), Apple TV und Android TV / Google TV. Voraussetzung: TV und iPhone müssen im selben WLAN sein.</p>
+
+            <h3>Welche Apple Watch brauche ich?</h3>
+            <p>Eine Apple Watch ist optional. NapControl funktioniert auch komplett ohne Watch über den „Apple Health"-Modus, der den von iOS erkannten Schlaf nutzt. Mit Apple Watch ist die Erkennung schneller und genauer.</p>
+
+            <h3>Werden meine Gesundheitsdaten irgendwo hochgeladen?</h3>
+            <p>Nein. Alle Daten bleiben ausschließlich auf deinem Gerät. Es gibt keinen Server, keine Cloud, keine Analytics. Details in der <a href="privacy.html">Datenschutzerklärung</a>.</p>
+
+            <h3>Mein TV wird nicht gefunden</h3>
+            <p>Die häufigsten Gründe:</p>
+            <ul>
+                <li>iPhone und TV sind in unterschiedlichen WLAN-Netzen (z.B. 2,4 GHz vs. 5 GHz, oder Gast-Netzwerk)</li>
+                <li>Beim ersten Verbinden muss am TV bestätigt werden, dass NapControl zugreifen darf</li>
+                <li>Der TV ist im Standby — manche TVs antworten dann nicht auf Discovery-Anfragen</li>
+                <li>Bei Sony: Pre-Shared Key (PSK) muss am TV unter „Netzwerk → Heimnetzwerk → IP-Steuerung" eingerichtet sein</li>
+            </ul>
+            <p>Falls das nicht hilft, kannst du den TV auch manuell mit IP-Adresse hinzufügen.</p>
+
+            <h3>Die Apple Watch erkennt das Einschlafen nicht</h3>
+            <p>NapControl braucht eine kurze Aufwärmphase (~1 Minute), um deinen Ruhepuls zu kalibrieren. Außerdem muss die Watch-App zum Tracking-Start tatsächlich gestartet sein — am einfachsten per Tap auf die NapControl-Komplikation am Zifferblatt. Im Apple-Health-Modus erkennt iOS Schlaf erst nach 5–15 Minuten stabiler Schlafphase.</p>
+
+            <h3>Wie kann ich meine Schlaf-Daten exportieren?</h3>
+            <p>Im Schlaf-Verlauf oben rechts auf das Teilen-Symbol tippen. Du kannst dann einen Zeitraum auswählen und die Daten als CSV oder JSON teilen.</p>
+
+            <h2>Bug melden</h2>
+            <p>Falls etwas nicht funktioniert, schreib mir bitte eine E-Mail mit:</p>
+            <ul>
+                <li>Welcher TV (Marke + Modell)</li>
+                <li>iOS- und watchOS-Version</li>
+                <li>Was du erwartet hast und was tatsächlich passiert ist</li>
+                <li>Optional: Screenshots oder ein Export aus dem Detection-Log (Schlaf-Verlauf → Letzte Nacht – Detail-Log → Teilen)</li>
+            </ul>
+        </main>
+
+        <footer>
+            <p>
+                <a href="index.html">Start</a> ·
+                <a href="privacy.html">Datenschutz</a> ·
+                <a href="impressum.html">Impressum</a>
+            </p>
+            <p>© 2026 Kevin Wietzorek</p>
+        </footer>
+    </div>
+</body>
+</html>

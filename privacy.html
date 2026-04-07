@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerklärung — NapControl</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🌙</div>
+            <h1>NapControl</h1>
+        </header>
+
+        <nav>
+            <a href="index.html">Start</a>
+            <a href="privacy.html">Datenschutz</a>
+            <a href="impressum.html">Impressum</a>
+            <a href="support.html">Support</a>
+        </nav>
+
+        <main>
+            <h1>Datenschutzerklärung</h1>
+            <p class="meta">Stand: 7. April 2026</p>
+
+            <h2>1. Verantwortlicher</h2>
+            <p>
+                Kevin Wietzorek<br>
+                Wanner Str. 169<br>
+                45888 Gelsenkirchen<br>
+                Deutschland<br><br>
+                E-Mail: <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a>
+            </p>
+
+            <h2>2. Überblick</h2>
+            <p>NapControl ist eine iOS- und watchOS-App, die Schlaf vor dem Fernseher erkennt und den TV automatisch pausiert oder ausschaltet. Diese Datenschutzerklärung gilt sowohl für die App-Store-Version als auch für die TestFlight-Beta.</p>
+
+            <div class="card highlight">
+                <p><strong>Kurzfassung:</strong> NapControl speichert alle Daten ausschließlich lokal auf deinem iPhone und deiner Apple Watch. Es gibt keinen Server, keine Cloud-Speicherung, keine Analytics, keine Werbung und keine Übertragung an Dritte. Die App funktioniert komplett offline (außer für die TV-Steuerung im lokalen WLAN).</p>
+            </div>
+
+            <h2>3. Welche Daten werden verarbeitet?</h2>
+
+            <h3>3.1 Gesundheitsdaten (HealthKit)</h3>
+            <p>Mit deiner ausdrücklichen Zustimmung greift NapControl auf folgende Daten aus Apple Health zu:</p>
+            <ul>
+                <li><strong>Herzfrequenz</strong> (HKQuantityTypeIdentifierHeartRate) — wird während aktivem Tracking gelesen, um Einschlafen anhand des absinkenden Pulses zu erkennen</li>
+                <li><strong>Ruhe-Herzfrequenz</strong> (HKQuantityTypeIdentifierRestingHeartRate) — der 7-Tage-Durchschnitt wird als persönliche Baseline für die Erkennungsschwelle verwendet</li>
+                <li><strong>Schlafanalyse</strong> (HKCategoryTypeIdentifierSleepAnalysis) — im Native-Modus liest NapControl Schlafereignisse, die iOS bereits selbst erkannt hat</li>
+            </ul>
+            <p>Außerdem schreibt NapControl im Watch-Modus eine kurze Workout-Session (HKWorkoutType, Mind &amp; Body), um auf der Apple Watch im Hintergrund tracken zu dürfen. Diese Workout-Session wird nach dem Tracking sofort verworfen und erscheint nicht in deinen Aktivitäts-Ringen.</p>
+            <p><strong>Diese Daten verlassen dein Gerät nicht.</strong> Sie werden ausschließlich lokal verarbeitet und nicht an NapControl, Server oder Dritte übermittelt.</p>
+
+            <h3>3.2 HomeKit (optional)</h3>
+            <p>Wenn du in den Einstellungen die HomeKit-Funktion aktivierst, fordert NapControl Zugriff auf dein HomeKit-Zuhause an, um eine von dir ausgewählte Szene beim Einschlafen auszulösen (z.B. „Licht aus"). NapControl liest nur die Liste deiner Szenen und ruft <code>executeActionSet</code> auf — es liest keine Sensordaten, keine Personen-Anwesenheit, keine Geräte-Zustände.</p>
+
+            <h3>3.3 Lokales Netzwerk</h3>
+            <p>Zum Steuern deines TVs sucht NapControl Geräte in deinem lokalen WLAN per Bonjour, SSDP und HTTP-Probing. Diese Kommunikation findet ausschließlich zwischen deinem iPhone und deinem TV statt. Es werden keine Daten an externe Server gesendet.</p>
+
+            <h3>3.4 Schlaf-Verlauf</h3>
+            <p>NapControl speichert eine Historie deiner Einschlaf-Ereignisse lokal auf deinem Gerät (in UserDefaults). Diese enthält:</p>
+            <ul>
+                <li>Zeitstempel des erkannten Einschlafens</li>
+                <li>Durchschnittliche und Ruhe-Herzfrequenz zum Zeitpunkt der Erkennung</li>
+                <li>Ob die TV-Aktion erfolgreich war</li>
+                <li>Optional dein Feedback (war die Erkennung korrekt?)</li>
+            </ul>
+            <p>Du kannst diese Historie jederzeit in der App einsehen, einzelne Einträge oder ganze Schlaf-Sessions löschen, oder den kompletten Verlauf als CSV oder JSON exportieren.</p>
+
+            <h3>3.5 Diagnose-Log</h3>
+            <p>Während des Trackings schreibt die Apple Watch ein technisches Diagnose-Log (Herzfrequenz-Stichproben, Erkennungs-Zustände, Workout-Session-Status). Dieses Log wird zur iPhone-App synchronisiert und dort lokal gespeichert. Es dient ausschließlich dazu, Probleme mit der Erkennung nachzuvollziehen, und kann jederzeit gelöscht werden.</p>
+
+            <h2>4. Was NapControl NICHT macht</h2>
+            <ul>
+                <li>Keine Werbung</li>
+                <li>Keine Tracking-Pixel, keine Analytics-SDKs</li>
+                <li>Keine Übertragung von Daten an externe Server</li>
+                <li>Kein User-Account, kein Login, keine Cloud</li>
+                <li>Keine Standortdaten</li>
+                <li>Keine Push-Benachrichtigungen ohne deinen Trigger</li>
+                <li>Keine Weitergabe an Dritte</li>
+            </ul>
+
+            <h2>5. Berechtigungen, die NapControl anfordert</h2>
+            <ul>
+                <li><strong>HealthKit-Zugriff</strong> — siehe 3.1</li>
+                <li><strong>HomeKit-Zugriff</strong> — optional, siehe 3.2</li>
+                <li><strong>Zugriff auf das lokale Netzwerk</strong> — zum Finden und Steuern des TVs</li>
+                <li><strong>Mitteilungen</strong> — optionale Benachrichtigung, wenn der TV gesteuert wurde</li>
+                <li><strong>Hintergrundaktualisierung</strong> — damit das Schlaf-Signal von der Watch zuverlässig empfangen wird</li>
+            </ul>
+            <p>Du kannst alle Berechtigungen jederzeit in den iOS-Einstellungen widerrufen. NapControl funktioniert dann nur noch eingeschränkt.</p>
+
+            <h2>6. Speicherdauer und Löschung</h2>
+            <p>Alle Daten werden lokal auf deinem Gerät gespeichert und bleiben dort, bis du sie selbst löschst oder die App deinstallierst. Bei Deinstallation der App werden alle lokal gespeicherten NapControl-Daten von iOS automatisch entfernt.</p>
+
+            <h2>7. Deine Rechte</h2>
+            <p>Da NapControl keine personenbezogenen Daten erhebt oder verarbeitet, die das Gerät verlassen, gibt es seitens des Anbieters keine zentral gespeicherten Daten, auf die sich klassische DSGVO-Auskunfts- oder Löschungsrechte beziehen könnten. Falls du dennoch Fragen zur Datenverarbeitung hast, wende dich an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a>.</p>
+
+            <h2>8. Drittanbieter-Bibliotheken</h2>
+            <p>NapControl verwendet Open-Source-Bibliotheken zur Kommunikation mit verschiedenen TV-Marken (z.B. TVCommanderKit für Samsung, WebOSClient für LG, AndroidTVRemoteControl für Android TV). Eine vollständige Liste mit Lizenzangaben findest du in der App unter <em>Einstellungen → App → Open Source Lizenzen</em>. Diese Bibliotheken kommunizieren ausschließlich mit dem TV in deinem lokalen WLAN und übermitteln keine Daten an externe Server.</p>
+
+            <h2>9. Änderungen</h2>
+            <p>Diese Datenschutzerklärung kann bei Funktionsänderungen der App angepasst werden. Die jeweils aktuelle Version ist unter <a href="https://sorrow91.github.io/napcontrol-web/privacy.html">sorrow91.github.io/napcontrol-web/privacy.html</a> einsehbar.</p>
+
+            <h2>10. Kontakt</h2>
+            <p>Bei Fragen zum Datenschutz: <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a></p>
+        </main>
+
+        <footer>
+            <p>
+                <a href="index.html">Start</a> ·
+                <a href="impressum.html">Impressum</a> ·
+                <a href="support.html">Support</a>
+            </p>
+            <p>© 2026 Kevin Wietzorek</p>
+        </footer>
+    </div>
+</body>
+</html>
