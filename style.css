@@ -48,8 +48,15 @@ header {
 }
 
 header .logo {
-    font-size: 48px;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    line-height: 0;
+}
+
+header .logo img {
+    border-radius: 22%;
+    box-shadow: 0 8px 24px rgba(45, 27, 105, 0.25);
+    max-width: 100%;
+    height: auto;
 }
 
 header h1 {
