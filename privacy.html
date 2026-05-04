@@ -71,15 +71,34 @@
             <h3>3.5 Diagnose-Log</h3>
             <p>Während des Trackings schreibt die Apple Watch ein technisches Diagnose-Log (Herzfrequenz-Stichproben, Erkennungs-Zustände, Workout-Session-Status). Dieses Log wird zur iPhone-App synchronisiert und dort lokal gespeichert. Es dient ausschließlich dazu, Probleme mit der Erkennung nachzuvollziehen, und kann jederzeit gelöscht werden.</p>
 
+            <h3>3.6 Optionale Diagnose-Übertragung an den Entwickler</h3>
+            <p>Über <em>Einstellungen → Mehr → Logs teilen → An Entwickler senden</em> kannst du das oben beschriebene Diagnose-Log freiwillig an den Entwickler übertragen, um Probleme zu melden. Diese Übertragung passiert <strong>nur</strong> nach ausdrücklicher Zustimmung in einem Bestätigungs-Dialog innerhalb der App.</p>
+            <p>Übertragen werden:</p>
+            <ul>
+                <li>Das Diagnose-ZIP (Detection-Log, Schlaf-Ereignisse, Herzfrequenz-Stichproben)</li>
+                <li>Anonyme Installations-UUID (lokal generiert, kein Bezug zu Apple-ID o. Ä.)</li>
+                <li>App-Build, iOS-Version, Watch-Modell</li>
+                <li>Optional: deine Mail-Adresse für Rückfragen — Eingabe ist freiwillig</li>
+            </ul>
+            <p><strong>Empfänger und Speicherort:</strong> Der Upload geht an einen vom Entwickler betriebenen Cloudflare Worker (<code>napcontrol-push.wietzorek.workers.dev</code>). Die ZIP-Datei wird in einem Cloudflare-R2-Bucket in EU-Jurisdiktion gespeichert. Eine Benachrichtigungs-Mail mit Download-Link geht über den E-Mail-Service Resend an den Entwickler.</p>
+            <p><strong>Auftragsverarbeiter:</strong></p>
+            <ul>
+                <li>Cloudflare, Inc. (Hosting des Workers, R2-Speicher) — AVV gemäß DSGVO Art. 28 abgeschlossen</li>
+                <li>Resend, Inc. (Versand der Benachrichtigungs-Mail) — DPA gemäß DSGVO Art. 28 abgeschlossen</li>
+            </ul>
+            <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) sowie Art. 9 Abs. 2 lit. a DSGVO für die mitübertragenen Gesundheitsdaten (Herzfrequenz, Schlafanalyse).</p>
+            <p><strong>Speicherdauer:</strong> ZIPs werden automatisch nach 90 Tagen gelöscht.</p>
+            <p><strong>Widerruf:</strong> Die Einwilligung gilt nur für den jeweiligen Upload — beim nächsten Mal wird sie erneut abgefragt. Du kannst jederzeit per Mail an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a> die Löschung deiner Daten verlangen, idealerweise unter Angabe deiner Installations-UUID (sichtbar in der App nicht; lässt sich aber über die Mail zuordnen, wenn du eine angegeben hast).</p>
+
             <h2>4. Was NapControl NICHT macht</h2>
             <ul>
                 <li>Keine Werbung</li>
                 <li>Keine Tracking-Pixel, keine Analytics-SDKs</li>
-                <li>Keine Übertragung von Daten an externe Server</li>
-                <li>Kein User-Account, kein Login, keine Cloud</li>
+                <li>Keine automatische Übertragung von Nutzungsdaten — Diagnose-Logs gehen <strong>nur nach ausdrücklicher Zustimmung</strong> raus (siehe 3.6)</li>
+                <li>Kein User-Account, kein Login, keine Cloud-Synchronisation</li>
                 <li>Keine Standortdaten</li>
                 <li>Keine Push-Benachrichtigungen ohne deinen Trigger</li>
-                <li>Keine Weitergabe an Dritte</li>
+                <li>Keine Weitergabe an Werbenetzwerke oder andere Dritte als die in 3.6 genannten Auftragsverarbeiter</li>
             </ul>
 
             <h2>5. Berechtigungen, die NapControl anfordert</h2>
