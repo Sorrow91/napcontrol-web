@@ -30,29 +30,41 @@
             <h2>Häufige Fragen</h2>
 
             <h3>Welche TVs werden unterstützt?</h3>
-            <p>Samsung (Tizen), Sony (Bravia), LG (WebOS), Hisense (VIDAA U4+), Apple TV und Android TV / Google TV. Voraussetzung: TV und iPhone müssen im selben WLAN sein.</p>
+            <ul>
+                <li>Samsung (Tizen), Sony (Bravia), LG (webOS)</li>
+                <li>Philips (Android TV, ab 2016), Hisense (VIDAA U4+, ab 2020), Panasonic (Viera bis ca. 2017)</li>
+                <li>TCL, Android TV / Google TV, Roku</li>
+                <li>Fire TV (ADB muss im Entwicklermenü aktiviert sein) und Apple TV</li>
+            </ul>
+            <p>Voraussetzung: TV und iPhone müssen im selben WLAN sein.</p>
 
             <h3>Welche Apple Watch brauche ich?</h3>
-            <p>Eine Apple Watch ist optional. NapControl funktioniert auch komplett ohne Watch über den „Apple Health"-Modus, der den von iOS erkannten Schlaf nutzt. Mit Apple Watch ist die Erkennung schneller und genauer.</p>
+            <p>Für das Ausschalten beim Einschlafen brauchst du eine Apple Watch mit watchOS 10.5 oder neuer und ein iPhone mit iOS 17.5 oder neuer. Die Watch-App erkennt das Einschlafen in Echtzeit anhand von Puls und Bewegung. NapControl ist für das iPhone gebaut; eine iPad-Version gibt es nicht.</p>
+            <p>Der Modus „Apple Health · nicht in Echtzeit“ kommt ohne gestartete Watch-App aus. Er wertet aber nur die Schlafdaten aus, die in Apple Health landen — und die schreibt die Apple Watch meist erst nach dem Aufwachen. Beim Einschlafen vor dem TV liegt dann meist noch nichts vor, der TV bleibt also an.</p>
 
             <h3>Werden meine Gesundheitsdaten irgendwo hochgeladen?</h3>
-            <p>Nein. Alle Daten bleiben ausschließlich auf deinem Gerät. Es gibt keinen Server, keine Cloud, keine Analytics. Details in der <a href="privacy.html">Datenschutzerklärung</a>.</p>
+            <p>Puls und Schlafdaten nur, wenn du es selbst auslöst: Über „Problem melden“ in den Einstellungen kannst du nach ausdrücklicher Zustimmung Logs schicken. Darin stecken das Erkennungs-Log (Puls, Ruhepuls, Bewegungswerte), dein Schlaf-Verlauf mit Einschlafzeiten und Puls-Verlauf, deine TVs und Gruppen (Marke, Name, IP-Adresse), das Verbindungs-Log und Geräte-Infos (App-, iOS- und watchOS-Version, Watch-Modell), auf Wunsch auch deine Beschreibung und deine E-Mail-Adresse. Eine Info-Mail mit den Geräte-Infos und gegebenenfalls deiner E-Mail-Adresse geht über Resend (USA) an mich. Sonst bleiben deine Gesundheitsdaten auf deinem iPhone und deiner Apple Watch.</p>
+            <p>Automatisch an einen Server gehen nur eine zufällige Installations-ID mit dem Push-Token deines iPhones und, sobald deine Watch ein Einschlafen erkennt, ein Weck-Signal mit dieser ID, damit die Watch das iPhone sofort wecken kann. Puls oder Schlafdaten stecken darin nicht, aber der Zeitpunkt des Signals verrät, wann du eingeschlafen bist. Keine Analytics, kein Tracking. Details in der <a href="privacy.html">Datenschutzerklärung</a>.</p>
 
             <h3>Mein TV wird nicht gefunden</h3>
             <p>Die häufigsten Gründe:</p>
             <ul>
+                <li>NapControl darf nicht im lokalen Netzwerk suchen — prüf das in den iOS-Einstellungen unter „Lokales Netzwerk“</li>
                 <li>iPhone und TV sind in unterschiedlichen WLAN-Netzen (z.B. 2,4 GHz vs. 5 GHz, oder Gast-Netzwerk)</li>
                 <li>Beim ersten Verbinden muss am TV bestätigt werden, dass NapControl zugreifen darf</li>
                 <li>Der TV ist im Standby — manche TVs antworten dann nicht auf Discovery-Anfragen</li>
-                <li>Bei Sony: Pre-Shared Key (PSK) muss am TV unter „Netzwerk → Heimnetzwerk → IP-Steuerung" eingerichtet sein</li>
+                <li>Bei Sony: Am einfachsten richtest du am TV unter „Netzwerk → Heimnetzwerk → IP-Steuerung“ einen Pre-Shared Key (PSK) ein. Ohne PSK koppelt NapControl per PIN, die kurz am TV erscheint.</li>
             </ul>
             <p>Falls das nicht hilft, kannst du den TV auch manuell mit IP-Adresse hinzufügen.</p>
 
+            <h3>Der TV geht nicht aus</h3>
+            <p>Teste zuerst, ob NapControl deinen TV überhaupt erreicht: Einstellungen → TVs → dein TV → „Diesen TV jetzt testen“. Klappt dieser Test nicht, klappt auch das automatische Ausschalten nicht. „Aktionen testen“ unter Einstellungen → Aktionen spielt deine ganze Abfolge einmal durch — wie der Probelauf beim Einrichten, bei dem dein TV einmal zur Probe ausgeht (oder pausiert). Klappt der Test, liegt es meist an der Erkennung (siehe nächste Frage).</p>
+
             <h3>Die Apple Watch erkennt das Einschlafen nicht</h3>
-            <p>NapControl braucht eine kurze Aufwärmphase (~1 Minute), um deinen Ruhepuls zu kalibrieren. Außerdem muss die Watch-App zum Tracking-Start tatsächlich gestartet sein — am einfachsten per Tap auf die NapControl-Komplikation am Zifferblatt. Im Apple-Health-Modus erkennt iOS Schlaf erst nach 5–15 Minuten stabiler Schlafphase.</p>
+            <p>Direkt nach dem Start erkennt NapControl noch kein Einschlafen: frühestens nach 6 Minuten (Erkennungsprofil „Ausgewogen“; bei „Schnell“ nach 3, bei „Streng“ nach 10 Minuten), denn wer gerade auf Start getippt hat, ist noch wach. Außerdem muss die Watch-App zum Tracking-Start tatsächlich gestartet sein — am einfachsten per Tap auf die NapControl-Komplikation am Zifferblatt. Im Apple-Health-Modus passiert beim Einschlafen meist nichts, weil die Schlafdaten erst nach dem Aufwachen in Apple Health landen. Für das Ausschalten beim Einschlafen stell in den Einstellungen unter „Erkennung“ auf „Apple Watch · Echtzeit“ um.</p>
 
             <h3>Wie kann ich meine Schlaf-Daten exportieren?</h3>
-            <p>Im Schlaf-Verlauf oben rechts auf das Teilen-Symbol tippen. Du kannst dann einen Zeitraum auswählen und die Daten als CSV oder JSON teilen.</p>
+            <p>Im Schlaf-Verlauf oben rechts auf das Teilen-Symbol tippen. Du kannst dann einen Zeitraum auswählen und die Daten als ZIP-Datei (CSV und JSON) teilen.</p>
 
             <h2>Bug melden</h2>
             <p>Falls etwas nicht funktioniert, schreib mir bitte eine E-Mail mit:</p>
@@ -60,8 +72,9 @@
                 <li>Welcher TV (Marke + Modell)</li>
                 <li>iOS- und watchOS-Version</li>
                 <li>Was du erwartet hast und was tatsächlich passiert ist</li>
-                <li>Optional: Screenshots oder ein Export aus dem Detection-Log (Schlaf-Verlauf → Letzte Nacht – Detail-Log → Teilen)</li>
+                <li>Optional: Screenshots oder die Logs der App (Schlaf-Verlauf → Teilen-Symbol)</li>
             </ul>
+            <p>Statt per Mail kannst du die Logs auch unter Einstellungen → Mehr → „Problem melden“ direkt schicken, auf Wunsch mit einer kurzen Beschreibung. Schlaf-Verlauf und Erkennungs-Log gehen ab 0 Uhr vor 7 Tagen mit, dazu deine aktuelle TV-Liste und die letzten bis zu 200 Einträge des Verbindungs-Logs, auch wenn sie älter sind. Das passiert nur nach deiner ausdrücklichen Zustimmung; was dabei übertragen wird, steht in der <a href="privacy.html#diagnose-upload">Datenschutzerklärung (3.6)</a>.</p>
         </main>
 
         <footer>

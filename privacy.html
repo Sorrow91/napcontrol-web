@@ -22,7 +22,7 @@
 
         <main>
             <h1>Datenschutzerklärung</h1>
-            <p class="meta">Stand: 7. April 2026</p>
+            <p class="meta">Stand: 3. Oktober 2026</p>
 
             <h2>1. Verantwortlicher</h2>
             <p>
@@ -34,10 +34,10 @@
             </p>
 
             <h2>2. Überblick</h2>
-            <p>NapControl ist eine iOS- und watchOS-App, die Schlaf vor dem Fernseher erkennt und den TV automatisch pausiert oder ausschaltet. Diese Datenschutzerklärung gilt sowohl für die App-Store-Version als auch für die TestFlight-Beta.</p>
+            <p>NapControl ist eine App für iPhone und Apple Watch, die Schlaf vor dem Fernseher erkennt und den TV automatisch pausiert oder ausschaltet. Diese Datenschutzerklärung gilt sowohl für die App-Store-Version als auch für die TestFlight-Beta.</p>
 
             <div class="card highlight">
-                <p><strong>Kurzfassung:</strong> NapControl speichert alle Daten ausschließlich lokal auf deinem iPhone und deiner Apple Watch. Es gibt keinen Server, keine Cloud-Speicherung, keine Analytics, keine Werbung und keine Übertragung an Dritte. Die App funktioniert komplett offline (außer für die TV-Steuerung im lokalen WLAN).</p>
+                <p><strong>Kurzfassung:</strong> Deine Gesundheitsdaten (Puls, Bewegung, Schlafanalyse) und dein Schlaf-Verlauf bleiben auf deinem iPhone und deiner Apple Watch — außer du exportierst den Schlaf-Verlauf selbst (siehe 3.4), teilst einen Diagnose-Bericht (siehe 3.5) oder schickst ein Diagnose-Log an den Entwickler (siehe 3.6). Automatisch an einen Server (Cloudflare) geht nur, was der Push-Weckdienst braucht: eine zufällige Installations-ID, das Push-Token deines iPhones und, sobald deine Watch ein Einschlafen erkennt, ein Weck-Signal mit dieser ID. Aus dem Zeitpunkt dieses Signals lässt sich ablesen, wann du eingeschlafen bist (siehe 3.7). Kein Konto, keine Analytics, keine Werbung, kein Tracking. Die TV-Steuerung läuft direkt in deinem lokalen WLAN.</p>
             </div>
 
             <h2>3. Welche Daten werden verarbeitet?</h2>
@@ -45,80 +45,113 @@
             <h3>3.1 Gesundheitsdaten (HealthKit)</h3>
             <p>Mit deiner ausdrücklichen Zustimmung greift NapControl auf folgende Daten aus Apple Health zu:</p>
             <ul>
-                <li><strong>Herzfrequenz</strong> (HKQuantityTypeIdentifierHeartRate) — wird während aktivem Tracking gelesen, um Einschlafen anhand des absinkenden Pulses zu erkennen</li>
-                <li><strong>Ruhe-Herzfrequenz</strong> (HKQuantityTypeIdentifierRestingHeartRate) — der 7-Tage-Durchschnitt wird als persönliche Baseline für die Erkennungsschwelle verwendet</li>
-                <li><strong>Schlafanalyse</strong> (HKCategoryTypeIdentifierSleepAnalysis) — im Native-Modus liest NapControl Schlafereignisse, die iOS bereits selbst erkannt hat</li>
+                <li><strong>Herzfrequenz</strong> (HKQuantityTypeIdentifierHeartRate) — wird während aktivem Tracking gelesen, um Einschlafen anhand des absinkenden Pulses zu erkennen. Ist zu einer bestätigten Erkennung kein Puls gespeichert, liest die App außerdem frühestens 8 Stunden später den Durchschnittspuls des zugehörigen Schlafabschnitts aus Apple Health und trägt ihn im Schlaf-Verlauf nach (siehe 3.4)</li>
+                <li><strong>Ruhe-Herzfrequenz</strong> (HKQuantityTypeIdentifierRestingHeartRate) — der Durchschnitt der letzten 7 Tage (gibt es dort keine Werte, der letzten 30 Tage) wird als persönliche Baseline für die Erkennungsschwelle verwendet</li>
+                <li><strong>Schlafanalyse</strong> (HKCategoryTypeIdentifierSleepAnalysis) — im Modus „Apple Health“ liest NapControl die Schlafabschnitte, die Apple in Apple Health einträgt. Außerdem gleicht die App jede Erkennung frühestens 8 Stunden später mit diesen Daten ab, um zu prüfen, ob du zu diesem Zeitpunkt wirklich geschlafen hast</li>
             </ul>
-            <p>Außerdem schreibt NapControl im Watch-Modus eine kurze Workout-Session (HKWorkoutType, Mind &amp; Body), um auf der Apple Watch im Hintergrund tracken zu dürfen. Diese Workout-Session wird nach dem Tracking sofort verworfen und erscheint nicht in deinen Aktivitäts-Ringen.</p>
-            <p><strong>Diese Daten verlassen dein Gerät nicht.</strong> Sie werden ausschließlich lokal verarbeitet und nicht an NapControl, Server oder Dritte übermittelt.</p>
+            <p>Außerdem startet NapControl im Watch-Modus während des Trackings eine Workout-Session (HKWorkoutType, Aktivität „Gehen“, drinnen), um auf der Apple Watch im Hintergrund tracken zu dürfen. Diese Aktivität hält die Herzfrequenz-Messung zuverlässig am Laufen. Die Workout-Session wird nach dem Tracking sofort verworfen und erscheint nicht in deinen Aktivitäts-Ringen.</p>
+            <p><strong>Bewegungsdaten:</strong> Während des Trackings wertet die Watch-App den Beschleunigungssensor und die Aktivitätserkennung von watchOS (z. B. ob du gehst oder stillhältst) aus, um zu erkennen, ob du ruhig liegst. Dafür fragt sie nach der Berechtigung „Bewegung &amp; Fitness“.</p>
+            <p><strong>Diese Daten werden ausschließlich lokal auf deinem iPhone und deiner Apple Watch verarbeitet.</strong> Sie verlassen deine Geräte nur, wenn du selbst den Schlaf-Verlauf exportierst (siehe 3.4), einen Diagnose-Bericht teilst (siehe 3.5) oder ein Diagnose-Log an den Entwickler sendest (siehe 3.6). Nur den Zeitpunkt, zu dem deine Watch ein Einschlafen erkennt, erfährt der Server des Push-Weckdienstes automatisch (siehe 3.7).</p>
 
             <h3>3.2 HomeKit (optional)</h3>
-            <p>Wenn du in den Einstellungen die HomeKit-Funktion aktivierst, fordert NapControl Zugriff auf dein HomeKit-Zuhause an, um eine von dir ausgewählte Szene beim Einschlafen auszulösen (z.B. „Licht aus"). NapControl liest nur die Liste deiner Szenen und ruft <code>executeActionSet</code> auf — es liest keine Sensordaten, keine Personen-Anwesenheit, keine Geräte-Zustände.</p>
+            <p>Wenn du eine Apple-Home-Szene zu deinen Aktionen hinzufügst („Szene hinzufügen“), fordert NapControl Zugriff auf dein Apple-Home-Zuhause (HomeKit) an, um diese Szene beim Einschlafen auszulösen (z. B. „Licht aus“). NapControl liest nur die Liste deiner Szenen (Name der Szene und des Zuhauses und ob eine Szene überhaupt Aktionen enthält; leere Szenen blendet die App aus) und ruft <code>executeActionSet</code> auf. Vor und nach dem Auslösen liest sie, wann die Szene zuletzt ausgeführt wurde, um zu prüfen, ob Apple Home sie wirklich ausgeführt hat. NapControl liest keine Sensordaten, keine Personen-Anwesenheit, keine Geräte-Zustände.</p>
 
             <h3>3.3 Lokales Netzwerk</h3>
-            <p>Zum Steuern deines TVs sucht NapControl Geräte in deinem lokalen WLAN per Bonjour, SSDP und HTTP-Probing. Diese Kommunikation findet ausschließlich zwischen deinem iPhone und deinem TV statt. Es werden keine Daten an externe Server gesendet.</p>
+            <p>Um deinen TV zu finden, sucht NapControl in deinem lokalen WLAN per Bonjour und SSDP. Zusätzlich fragt die App jede Adresse im Adressbereich deines iPhones (x.x.x.1 bis x.x.x.254) auf typischen TV-Ports an, per HTTP, HTTPS/TLS oder einfacher TCP-Verbindung: für Philips immer, für Samsung, Sony, LG, Hisense, Panasonic und Roku, wenn SSDP die Marke nicht gefunden hat. Diese Anfragen erreichen also alle Geräte in deinem Heimnetz, nicht nur deinen TV. Gesteuert werden danach nur die TVs, die du eingerichtet hast. Diese Kommunikation bleibt in deinem lokalen Netz; es werden dabei keine Daten an externe Server gesendet (zur Samsung-Bibliothek siehe 8).</p>
 
             <h3>3.4 Schlaf-Verlauf</h3>
             <p>NapControl speichert eine Historie deiner Einschlaf-Ereignisse lokal auf deinem Gerät (in UserDefaults). Diese enthält:</p>
             <ul>
                 <li>Zeitstempel des erkannten Einschlafens</li>
-                <li>Durchschnittliche und Ruhe-Herzfrequenz zum Zeitpunkt der Erkennung</li>
-                <li>Ob die TV-Aktion erfolgreich war</li>
-                <li>Optional dein Feedback (war die Erkennung korrekt?)</li>
+                <li>Durchschnittliche und Ruhe-Herzfrequenz zum Zeitpunkt der Erkennung, den Herzfrequenz-Verlauf rund um die Erkennung und einen Bewegungswert der Apple Watch</li>
+                <li>Woher die Erkennung stammt (z. B. Apple Watch, iPhone oder Apple Health) und ob es ein Test war</li>
+                <li>Ob eine TV-Aktion versucht wurde und ob sie erfolgreich war</li>
+                <li>Ob die Erkennung schon mit Apple Health abgeglichen wurde und ob sie gestimmt hat — das ermittelt die App automatisch (siehe 3.1); bei einer bestätigten Erkennung außerdem, wie viele Sekunden sie vor oder nach deinem Einschlafen laut Apple Health lag</li>
             </ul>
-            <p>Du kannst diese Historie jederzeit in der App einsehen, einzelne Einträge oder ganze Schlaf-Sessions löschen, oder den kompletten Verlauf als CSV oder JSON exportieren.</p>
+            <p>Aus den abgeglichenen Erkennungen berechnet die App persönliche Erkennungs-Schwellen (wie weit dein Puls beim Einschlafen unter deinen Ruhepuls fällt), speichert sie lokal und gibt sie an die Watch-App weiter.</p>
+            <p>Du kannst diese Historie jederzeit in der App einsehen, einzelne Einträge oder ganze Nächte löschen (das zugehörige Diagnose-Log bleibt dabei erhalten, siehe 3.5), oder den Verlauf für einen wählbaren Zeitraum als ZIP-Datei exportieren und über das Teilen-Menü von iOS an ein Ziel deiner Wahl weitergeben (im Schlaf-Verlauf über das Teilen-Symbol). Die ZIP-Datei enthält neben dem Verlauf (CSV und JSON) auch das Diagnose-Log aus 3.5 und das Verbindungs-Log der TV-Einrichtung, also auch Namen und IP-Adressen deiner TVs im Heimnetz (ohne Zugangsdaten). NapControl überträgt sie dabei nicht selbst. Einträge, die älter als 90 Tage sind, löscht die App automatisch.</p>
 
             <h3>3.5 Diagnose-Log</h3>
-            <p>Während des Trackings schreibt die Apple Watch ein technisches Diagnose-Log (Herzfrequenz-Stichproben, Erkennungs-Zustände, Workout-Session-Status). Dieses Log wird zur iPhone-App synchronisiert und dort lokal gespeichert. Es dient ausschließlich dazu, Probleme mit der Erkennung nachzuvollziehen, und kann jederzeit gelöscht werden.</p>
+            <p>Während des Trackings schreibt die Apple Watch ein technisches Diagnose-Log (Herzfrequenz-Stichproben, Bewegungswerte, Erkennungs-Zustände, Workout-Session-Status). Dieses Log wird zur iPhone-App synchronisiert und dort lokal gespeichert. Die iPhone-App ergänzt eigene Einträge: zur TV-Steuerung (darunter Name und IP-Adresse deiner TVs im Heimnetz und den Namen der Schlaf-Gruppe), aus ihrer eigenen Puls-Auswertung (Durchschnittspuls, Ruhepuls, Schwelle, Trend), Hinweise mit deinem Ruhepuls, wenn längere Zeit keine Pulswerte ankommen, und Einträge zum Anlernen der persönlichen Erkennungs-Schwellen (siehe 3.4). Löst die Watch den Push-Weckdienst aus, steht außerdem der Anfang (8 Zeichen) deiner Installations-ID im Log (siehe 3.7). Das Log dient ausschließlich dazu, Probleme mit der Erkennung nachzuvollziehen.</p>
+            <p>Löschen kannst du das Log nur pro Tracking-Session: im Schlaf-Verlauf in der Ansicht einer Nacht unter „Technische Details“. Das geht nur für Nächte mit mindestens einer gespeicherten Erkennung. Tracking-Sessions ohne Erkennung erscheinen nicht im Verlauf. Löschst du eine ganze Nacht (siehe 3.4), bleibt ihr Diagnose-Log erhalten, ist in der App danach aber nicht mehr erreichbar. Solche Einträge gehen weiter in den Export (3.4) und in „Problem melden“ (3.6) mit, bis die App sie wie alle Log-Einträge nach etwa 30 Tagen automatisch löscht.</p>
+            <p>Außerdem führt die App ein Verbindungs-Log der TV-Einrichtung: TV-Marke, Name, IP-Adresse und Antworten des TV beim Koppeln, ohne Zugangsdaten. Es behält die letzten bis zu 200 Einträge, ohne Altersgrenze. Löschen lässt es sich nur über die Entwickler-Optionen, die es nur in der TestFlight-Beta gibt; in der App-Store-Version bleibt es bis zum Löschen der App erhalten.</p>
+            <p>Im Schlaf-Verlauf kannst du außerdem in der Ansicht einer Nacht eine einzelne Erkennung nach rechts wischen und über „Diagnose“ einen Diagnose-Bericht erstellen. Er enthält die Logs der App (darin kann der Anfang deiner Installations-ID stehen), das Diagnose-Log der zugehörigen Tracking-Session (Herzfrequenz-Stichproben, Bewegungswerte; findet die App keine zeitlich passende Session, nimmt sie die jüngste, die aus einer anderen Nacht stammen kann), App- und iOS-Version, Gerätemodell und Systemsprache, deine TV-Liste mit IP-Adressen (ohne Zugangsdaten wie Tokens oder Pairing-Schlüssel), das Verbindungs-Log der TV-Einrichtung (TV-Marke, Name, IP-Adresse und Antworten des TV beim Koppeln, ohne Zugangsdaten), Schlaf-Gruppen und Szenen sowie Schlaf-Ereignisse mit Herzfrequenz-Werten. NapControl überträgt diesen Bericht nicht selbst: Du gibst ihn über das Teilen-Menü von iOS an ein Ziel deiner Wahl weiter, und die App löscht die temporäre Datei danach wieder.</p>
 
-            <h3>3.6 Optionale Diagnose-Übertragung an den Entwickler</h3>
-            <p>Über <em>Einstellungen → Mehr → Logs teilen → An Entwickler senden</em> kannst du das oben beschriebene Diagnose-Log freiwillig an den Entwickler übertragen, um Probleme zu melden. Diese Übertragung passiert <strong>nur</strong> nach ausdrücklicher Zustimmung in einem Bestätigungs-Dialog innerhalb der App.</p>
-            <p>Übertragen werden:</p>
+            <h3 id="diagnose-upload">3.6 Optionale Diagnose-Übertragung an den Entwickler</h3>
+            <p>Über <em>Einstellungen → Mehr → „Problem melden“</em> öffnest du das Fenster „Logs senden“. Dort kannst du Logs freiwillig an den Entwickler schicken, um ein Problem zu melden. Diese Übertragung passiert <strong>nur</strong>, wenn du dort den Schalter „Ich stimme zu“ einschaltest und auf „Senden“ tippst.</p>
+            <p>Übertragen wird eine ZIP-Datei mit:</p>
             <ul>
-                <li>Das Diagnose-ZIP (Detection-Log, Schlaf-Ereignisse, Herzfrequenz-Stichproben)</li>
-                <li>Anonyme Installations-UUID (lokal generiert, kein Bezug zu Apple-ID o. Ä.)</li>
-                <li>App-Build, iOS-Version, Watch-Modell</li>
+                <li>Schlaf-Ereignissen der letzten 7 Tage (genauer: ab 0 Uhr vor 7 Tagen bis jetzt, also bis zu 8 Kalendertage; mit Herzfrequenz-Verlauf und Bewegungswert) und dem Diagnose-Log aus 3.5 aus demselben Zeitraum (mit Herzfrequenz-Stichproben sowie Namen und IP-Adressen deiner TVs im Heimnetz)</li>
+                <li>dem Verbindungs-Log der TV-Einrichtung (die letzten bis zu 200 Einträge, unabhängig vom Zeitraum: TV-Marke, Name, IP-Adresse und Antworten des TV beim Koppeln, ohne Zugangsdaten)</li>
+                <li>einer TV-Liste (<code>tvs.json</code>): Marke, Name und IP-Adresse deiner TVs, deine Schlaf-Gruppen mit ihren Schritten (TV- und Szenen-Namen, Pausen) und welche Gruppe aktiv ist — ohne Zugangsdaten wie Tokens, PINs, Pre-Shared Keys oder Pairing-Schlüssel</li>
+                <li>falls ausgefüllt, deiner Beschreibung aus „Was ist passiert?“ (<code>beschreibung.txt</code>)</li>
+            </ul>
+            <p>Die App erstellt die ZIP-Datei erst beim Tippen auf „Senden“ und löscht sie nach dem Upload wieder von deinem iPhone. Zusätzlich schickt sie mit:</p>
+            <ul>
+                <li>Zufällige Installations-UUID (lokal erzeugt, kein Bezug zu Apple-ID o. Ä.; dieselbe ID wie beim Push-Weckdienst in 3.7)</li>
+                <li>App-Version und Build, iOS-Version, watchOS-Version und Watch-Modell (soweit bekannt)</li>
                 <li>Optional: deine Mail-Adresse für Rückfragen — Eingabe ist freiwillig</li>
             </ul>
-            <p><strong>Empfänger und Speicherort:</strong> Der Upload geht an einen vom Entwickler betriebenen Cloudflare Worker (<code>napcontrol-push.wietzorek.workers.dev</code>). Die ZIP-Datei wird in einem Cloudflare-R2-Bucket in EU-Jurisdiktion gespeichert. Eine Benachrichtigungs-Mail mit Download-Link geht über den E-Mail-Service Resend an den Entwickler.</p>
+            <p><strong>Empfänger und Speicherort:</strong> Der Upload geht an einen vom Entwickler betriebenen Cloudflare Worker (<code>napcontrol-push.wietzorek.workers.dev</code>). Die ZIP-Datei wird in einem Cloudflare-R2-Bucket in EU-Jurisdiktion gespeichert, zusammen mit den Angaben aus der zweiten Liste (inklusive deiner Mail-Adresse, falls angegeben) und dem Upload-Zeitpunkt. Eine Benachrichtigungs-Mail mit geschütztem Download-Link geht über den E-Mail-Service Resend (USA) an den Entwickler, allerdings nur für die ersten 50 Uploads pro Tag (UTC, über alle Nutzer zusammen); spätere Uploads landen nur im R2-Speicher. Um dieses Tageslimit zu zählen, speichert der Worker in Workers KV einen Zähler pro Tag, der keinen Bezug zu dir oder deinem Upload hat und nach 2 Tagen verfällt. Die Mail enthält Installations-UUID, App-Build, iOS- und watchOS-Version, Watch-Modell, die Größe der ZIP-Datei und — falls angegeben — deine Mail-Adresse (im Betreff, im Text und als Antwortadresse), aber nicht das Diagnose-ZIP selbst. Zum Schutz vor Missbrauch begrenzt der Worker die Zahl der Uploads pro IP-Adresse und Minute (bei IPv6 pro /64-Netz); dieser Zähler liegt nur kurzzeitig im Arbeitsspeicher von Cloudflare, nicht in einer Datenbank.</p>
             <p><strong>Auftragsverarbeiter:</strong></p>
             <ul>
                 <li>Cloudflare, Inc. (Hosting des Workers, R2-Speicher) — AVV gemäß DSGVO Art. 28 abgeschlossen</li>
-                <li>Resend, Inc. (Versand der Benachrichtigungs-Mail) — DPA gemäß DSGVO Art. 28 abgeschlossen</li>
+                <li>Resend (Plus Five Five, Inc., San Francisco, USA; Versand der Benachrichtigungs-Mail) — DPA gemäß DSGVO Art. 28 abgeschlossen; die Übermittlung in die USA ist über die Zertifizierung nach dem EU-US Data Privacy Framework und zusätzlich über die EU-Standardvertragsklauseln in Resends DPA abgesichert</li>
             </ul>
             <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) sowie Art. 9 Abs. 2 lit. a DSGVO für die mitübertragenen Gesundheitsdaten (Herzfrequenz, Schlafanalyse).</p>
-            <p><strong>Speicherdauer:</strong> ZIPs werden automatisch nach 90 Tagen gelöscht.</p>
-            <p><strong>Widerruf:</strong> Die Einwilligung gilt nur für den jeweiligen Upload — beim nächsten Mal wird sie erneut abgefragt. Du kannst jederzeit per Mail an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a> die Löschung deiner Daten verlangen, idealerweise unter Angabe deiner Installations-UUID (sichtbar in der App nicht; lässt sich aber über die Mail zuordnen, wenn du eine angegeben hast).</p>
+            <p><strong>Speicherdauer:</strong> Die ZIP-Datei und die mitgespeicherten Angaben löscht eine Lebenszyklus-Regel des R2-Speichers automatisch 90 Tage nach dem Upload. Die Benachrichtigungs-Mail (mit Installations-UUID, gegebenenfalls deiner Mail-Adresse und dem Download-Link) bleibt in meinem Postfach, bis ich sie nach Erledigung deiner Meldung lösche; Resend speichert versendete Mails zusätzlich nach seinen eigenen Fristen.</p>
+            <p><strong>Widerruf:</strong> Die Einwilligung gilt nur für den jeweiligen Upload — beim nächsten Mal wird sie erneut abgefragt. Du kannst jederzeit per Mail an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a> die Löschung deiner Daten verlangen, idealerweise unter Angabe deiner Installations-UUID. Die App zeigt sie nicht an, ihre ersten 8 Zeichen stehen aber im Diagnose-Log (siehe 3.5) und damit auch in Exporten des Schlaf-Verlaufs (3.4). Hast du beim Upload eine Mail-Adresse angegeben, lässt er sich auch darüber zuordnen.</p>
+
+            <h3>3.7 Push-Weckdienst</h3>
+            <p>Erkennt deine Apple Watch, dass du eingeschlafen bist, muss die iPhone-App den TV steuern — auch wenn dein iPhone gesperrt ist und die App im Hintergrund ruht. Damit das sofort passiert, weckt die Watch das iPhone über eine stille Push-Mitteilung (Apple Push Notification service, APNs). Sie hat keinen sichtbaren Inhalt und erscheint nicht auf dem Bildschirm. Ohne diesen Dienst kommt das Signal über die direkte Verbindung zwischen Watch und iPhone trotzdem an, nur deutlich langsamer.</p>
+            <p>Dafür verarbeitet NapControl:</p>
+            <ul>
+                <li><strong>Installations-ID</strong> — eine zufällige UUID, die die App beim ersten Start selbst erzeugt. Sie hat keinen Bezug zu deiner Apple-ID, deinem Namen oder einer Hardware-Kennung deines Geräts. Es ist dieselbe ID, die beim Diagnose-Upload (3.6) mitgeschickt wird.</li>
+                <li><strong>Push-Token</strong> — eine von Apple vergebene Adresse, über die Apple Push-Mitteilungen an NapControl auf deinem iPhone zustellt.</li>
+            </ul>
+            <p><strong>Ablauf:</strong> Die iPhone-App sendet Installations-ID und Push-Token bei jedem Start an den Cloudflare Worker des Entwicklers (<code>napcontrol-push.wietzorek.workers.dev</code>). Bei jeder Einschlaf-Erkennung schickt die Watch automatisch die Installations-ID dorthin, sonst nichts. Schon der Zeitpunkt dieser Anfrage zeigt Cloudflare und dem Worker (zusammen mit deiner IP-Adresse), wann du eingeschlafen bist. Der Worker lässt daraufhin über Apple eine stille Mitteilung an dein iPhone zustellen, die nur die Installations-ID und das Weck-Signal enthält. Gesundheitsdaten und Angaben zu deinem TV werden dabei nicht übertragen.</p>
+            <p><strong>Speicherort:</strong> Zu deinem Gerät speichert der Worker in Cloudflare Workers KV nur die Zuordnung Installations-ID → Push-Token mit dem Zeitpunkt ihrer letzten Aktualisierung und, nach dem ersten erfolgreichen Weck-Push, welcher Apple-Server (Produktion oder Entwicklung) für dein Gerät funktioniert. Workers KV verteilt Daten über Cloudflares weltweites Netz; sie können also auch außerhalb der EU gespeichert werden. Deine IP-Adresse verarbeitet Cloudflare technisch bedingt beim Verbindungsaufbau. Zum Schutz vor Missbrauch begrenzt der Worker, wie oft pro Minute eine IP-Adresse (bei IPv6 ihr /64-Netz) ihn aufrufen und wie oft eine Installations-ID ein Wecken auslösen darf. Diese Zähler hält Cloudflare nur im Arbeitsspeicher des jeweiligen Rechenzentrums für ein Zeitfenster von einer Minute; in Workers KV landen sie nicht. Zu jedem KV-Eintrag speichert Cloudflare, wann er abläuft. Der Eintrag zum Apple-Server entsteht beim ersten erfolgreichen Weck-Push und nach seinem Ablauf beim nächsten neu. Aus seinem Ablaufdatum lässt sich deshalb der Zeitpunkt dieses einen Weck-Pushs ablesen, also wann deine Watch damals ein Einschlafen gemeldet hat. Ein fortlaufendes Protokoll deiner Einschlafzeiten führt der Worker nicht, und deine IP-Adresse legt er nicht in Workers KV ab.</p>
+            <p><strong>Empfänger:</strong></p>
+            <ul>
+                <li>Cloudflare, Inc. (Betrieb des Workers und des KV-Speichers) — Auftragsverarbeiter wie in 3.6; Übermittlungen in Drittländer sind über die EU-Standardvertragsklauseln in Cloudflares Auftragsverarbeitungsvertrag abgesichert</li>
+                <li>Apple (Zustellung der stillen Mitteilung über den Apple Push Notification service)</li>
+            </ul>
+            <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Mein berechtigtes Interesse ist, dass die Kernfunktion der App zuverlässig arbeitet: Der TV soll auch bei gesperrtem iPhone sofort reagieren, wenn du einschläfst. Die Installations-ID ist pseudonym — ohne weitere Angaben (etwa eine Mail-Adresse aus einem Diagnose-Upload) kann ich sie keiner Person zuordnen.</p>
+            <p><strong>Speicherdauer:</strong> Beide Einträge verfallen automatisch 90 Tage, nachdem sie zuletzt geschrieben wurden. Startest du die App, schreibt der Worker die Zuordnung zum Push-Token nur neu, wenn sich das Token geändert hat oder die letzte Aktualisierung mindestens 30 Tage zurückliegt; solange du die App regelmäßig startest, läuft sie also nicht ab. Nach dem Löschen der App verschwinden die Einträge spätestens nach 90 Tagen. Meldet Apple bei einem Weck-Versuch, dass das Push-Token nicht mehr gültig ist (etwa weil die App gelöscht wurde), löscht der Worker beide Einträge sofort.</p>
 
             <h2>4. Was NapControl NICHT macht</h2>
             <ul>
                 <li>Keine Werbung</li>
                 <li>Keine Tracking-Pixel, keine Analytics-SDKs</li>
-                <li>Keine automatische Übertragung von Nutzungsdaten — Diagnose-Logs gehen <strong>nur nach ausdrücklicher Zustimmung</strong> raus (siehe 3.6)</li>
+                <li>Keine automatische Übertragung von Gesundheitsdaten wie Puls, Bewegung oder Schlafanalyse — automatisch gesendet werden nur Installations-ID und Push-Token für den Push-Weckdienst und bei jeder Einschlaf-Erkennung ein Weck-Signal mit der Installations-ID, dessen Zeitpunkt verrät, wann du eingeschlafen bist (siehe 3.7); Diagnose-Logs gehen <strong>nur nach ausdrücklicher Zustimmung</strong> raus (siehe 3.6)</li>
                 <li>Kein User-Account, kein Login, keine Cloud-Synchronisation</li>
                 <li>Keine Standortdaten</li>
                 <li>Keine Push-Benachrichtigungen ohne deinen Trigger</li>
-                <li>Keine Weitergabe an Werbenetzwerke oder andere Dritte als die in 3.6 genannten Auftragsverarbeiter</li>
+                <li>Keine Weitergabe an Werbenetzwerke oder andere Dritte als die in 3.6 und 3.7 genannten Empfänger</li>
             </ul>
 
             <h2>5. Berechtigungen, die NapControl anfordert</h2>
             <ul>
-                <li><strong>HealthKit-Zugriff</strong> — siehe 3.1</li>
-                <li><strong>HomeKit-Zugriff</strong> — optional, siehe 3.2</li>
-                <li><strong>Zugriff auf das lokale Netzwerk</strong> — zum Finden und Steuern des TVs</li>
-                <li><strong>Mitteilungen</strong> — optionale Benachrichtigung, wenn der TV gesteuert wurde</li>
+                <li><strong>Apple Health (HealthKit)</strong> — beim Einrichten fragt NapControl nach Lesezugriff auf Herzfrequenz, Ruhe-Herzfrequenz und Schlafanalyse. Ist eine Apple Watch gekoppelt, fragt dasselbe Fenster zusätzlich, ob NapControl Workouts sichern darf; das braucht die Workout-Session der Watch-App. Siehe 3.1</li>
+                <li><strong>Mitteilungen</strong> — fragt NapControl beim Einrichten. Darüber kannst du das Ausschalten während des Abbruch-Countdowns mit „Abbrechen“ stoppen; außerdem kommen so Warnungen während des Trackings und die Meldung, wann du eingeschlafen bist</li>
+                <li><strong>Lokales Netzwerk</strong> — fragt iOS, sobald NapControl zum ersten Mal nach TVs sucht; nötig zum Finden und Steuern deines TVs (siehe 3.3)</li>
+                <li><strong>Bewegung &amp; Fitness</strong> — fragt die Watch-App auf der Apple Watch, siehe 3.1</li>
+                <li><strong>Apple Home (HomeKit)</strong> — optional, erst wenn du eine Szene zu deinen Aktionen hinzufügst, siehe 3.2</li>
+                <li><strong>Fokus-Status</strong> — fragt NapControl nur, wenn du in der App den Fokus-Filter einrichtest (Einstellungen → Mehr → Hilfe &amp; FAQ → „Fokus-Filter einrichten“). Mit diesem Filter warnt dich NapControl vor dem Start, wenn der Fokus „Schlafen“ aktiv ist, weil er die Herzfrequenz-Erkennung unterbrechen kann. Diese Information bleibt auf deinem iPhone</li>
+                <li><strong>Bluetooth</strong> — nutzt NapControl selbst nicht. Die Samsung-Bibliothek in der App enthält aber eine Bluetooth-Suche (siehe 8), deshalb ist eine Bluetooth-Berechtigung hinterlegt. Fragt iOS danach, kannst du ablehnen; die TV-Steuerung braucht kein Bluetooth</li>
                 <li><strong>Hintergrundaktualisierung</strong> — damit das Schlaf-Signal von der Watch zuverlässig empfangen wird</li>
             </ul>
             <p>Du kannst alle Berechtigungen jederzeit in den iOS-Einstellungen widerrufen. NapControl funktioniert dann nur noch eingeschränkt.</p>
 
             <h2>6. Speicherdauer und Löschung</h2>
-            <p>Alle Daten werden lokal auf deinem Gerät gespeichert und bleiben dort, bis du sie selbst löschst oder die App deinstallierst. Bei Deinstallation der App werden alle lokal gespeicherten NapControl-Daten von iOS automatisch entfernt.</p>
+            <p>Daten auf deinen Geräten bleiben dort, bis du sie selbst löschst (soweit die App das anbietet, siehe 7) oder die App deinstallierst. Ausnahmen: Den Schlaf-Verlauf (3.4) löscht die App nach 90 Tagen automatisch, das Diagnose-Log (3.5) nach etwa 30 Tagen. Löschst du die App, entfernt iOS ihre lokal gespeicherten Daten, nicht aber unbedingt den Schlüsselbund: Schlüssel, die NapControl dort für die Verbindung zu deinen TVs ablegt (der Schlüssel für Fire TV, das Zertifikat für Android TV und die Kopplungsdaten für Apple TV), kann iOS auch nach dem Löschen der App behalten. Gesundheitsdaten sind darin nicht enthalten. Für die Daten auf dem Server gelten die Fristen aus 3.6 (Diagnose-Logs: 90 Tage nach dem Upload) und 3.7 (Push-Registrierung: spätestens 90 Tage nach der letzten Aktualisierung).</p>
 
             <h2>7. Deine Rechte</h2>
-            <p>Da NapControl keine personenbezogenen Daten erhebt oder verarbeitet, die das Gerät verlassen, gibt es seitens des Anbieters keine zentral gespeicherten Daten, auf die sich klassische DSGVO-Auskunfts- oder Löschungsrechte beziehen könnten. Falls du dennoch Fragen zur Datenverarbeitung hast, wende dich an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a>.</p>
+            <p>Für die Daten auf dem Server (Push-Registrierung nach 3.7, freiwillig gesendete Diagnose-Logs nach 3.6) hast du das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch (Art. 15–21 DSGVO) sowie das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Schreib mir dafür an <a href="mailto:kevin.wietzorek@web.de">kevin.wietzorek@web.de</a>. Die App zeigt die Installations-ID nicht an. Zuordnen kann ich eine Anfrage, wenn du bei einem Diagnose-Upload deine Mail-Adresse angegeben hast oder mir einen Export des Schlaf-Verlaufs schickst, in dessen Diagnose-Log die ersten 8 Zeichen der Installations-ID stehen (siehe 3.5).</p>
+            <p>Alle übrigen Daten liegen nur auf deinen Geräten. Den Schlaf-Verlauf, das Diagnose-Log (nachtweise, siehe 3.5) und deine TVs löschst du selbst in der App. Nicht löschen kannst du in der App-Store-Version das Verbindungs-Log der TV-Einrichtung (siehe 3.5), Diagnose-Log-Sessions, zu denen im Verlauf keine Nacht (mehr) erscheint (die löscht die App nach etwa 30 Tagen), und die berechneten Erkennungs-Schwellen (3.4). Diese Daten verschwinden spätestens, wenn du die App löschst.</p>
 
             <h2>8. Drittanbieter-Bibliotheken</h2>
-            <p>NapControl verwendet Open-Source-Bibliotheken zur Kommunikation mit verschiedenen TV-Marken (z.B. TVCommanderKit für Samsung, WebOSClient für LG, AndroidTVRemoteControl für Android TV). Eine vollständige Liste mit Lizenzangaben findest du in der App unter <em>Einstellungen → App → Open Source Lizenzen</em>. Diese Bibliotheken kommunizieren ausschließlich mit dem TV in deinem lokalen WLAN und übermitteln keine Daten an externe Server.</p>
+            <p>NapControl verwendet Open-Source-Bibliotheken zur Kommunikation mit verschiedenen TV-Marken (z.B. TVCommanderKit für Samsung, WebOSClient für LG, AndroidTVRemoteControl für Android TV). Eine vollständige Liste mit Lizenzangaben findest du in der App unter <em>Einstellungen → App → Open-Source-Lizenzen</em>. Diese Bibliotheken steuern den TV in deinem lokalen WLAN. Eine Einschränkung: TVCommanderKit bringt Samsungs SmartView-SDK als vorkompilierte Bibliothek ohne Quellcode mit. Es enthält eine Geräte-Suche, die laut ihrem Programmcode auch einen Samsung-Server (<code>multiscreen.samsung.com</code>) und Bluetooth ansprechen kann; ob sie das tut, kann ich nicht prüfen. NapControl nutzt diese Suche nur in der Entwickler-Fernbedienung „Samsung TV (TVCommander)“, die es nur in der TestFlight-Beta gibt. Das Finden und Steuern von Samsung-TVs läuft sonst nicht über dieses SDK.</p>
 
             <h2>9. Änderungen</h2>
             <p>Diese Datenschutzerklärung kann bei Funktionsänderungen der App angepasst werden. Die jeweils aktuelle Version ist unter <a href="https://sorrow91.github.io/napcontrol-web/privacy.html">sorrow91.github.io/napcontrol-web/privacy.html</a> einsehbar.</p>
